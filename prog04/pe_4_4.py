@@ -78,9 +78,11 @@ def __my_assert_args(function, args, expected_output, check_type=False):
 def test_new_password():
     case = collections.namedtuple('case', 'oldpass newpass expected_output')
 
-    testcases = [ case('geheim', 'geheim', False),
-                  case('geheim', 'geheimpje', True),
+    testcases = [ case('geheim1', 'geheim1', False),
+                  case('geheim', 'geheimpje8', True),
+                  case('abc', 'abcd8', False),
                   case('abc', 'abcd', False),
+                  case('geheim', 'abcd8', False),
                   case('geheimpje', 'abcd', False) ]
 
     for test in testcases:
