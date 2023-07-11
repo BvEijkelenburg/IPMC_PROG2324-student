@@ -87,7 +87,7 @@ def test_wijzig():
 
         __my_assert_args(wijzig, (test.characterlist,), test.expected_output)
 
-        check = 'd' in test.characterlist and 'e' in test.characterlist and 'f' in test.characterlist
+        check = test.characterlist == ['d', 'e', 'f']
         msg = f"Fout: Na functie wijzig({tmp_list}) bevat de meegegeven lijst {test.characterlist} in plaats van {['d', 'e', 'f']}"
 
         assert check, msg
