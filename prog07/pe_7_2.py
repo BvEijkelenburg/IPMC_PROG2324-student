@@ -68,7 +68,7 @@ def symbol_to_name(symbol, ticker_dict):
 
 def development_code():
     # Plaats hieronder eventueel code om je functies tussentijds te testen. Bijv:
-    tickers = tickers_to_dict('tickers.txt')
+    tickers = tickers_to_dict('pe_7_2_tickers.txt')
 
     name = input('Enter Company name: ')
     print(f"Ticker symbol: {name_to_symbol(name, tickers)}")
@@ -89,7 +89,7 @@ Hieronder staan de tests voor je code -- daaraan mag je niets wijzigen!
 
 
 def __my_test_file():
-    return "pe_8_4_testtickers.txt"
+    return "pe_7_2_testtickers.txt"
 
 
 def __create_test_file(tickers, testfile=__my_test_file()):
