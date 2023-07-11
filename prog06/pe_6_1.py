@@ -41,10 +41,10 @@ def analyzer(integerstring):
 def development_code():
     # Plaats hieronder eventueel code om je functies tussentijds te testen. Bijv:
     resultaat = analyzer("5-9-7-1-7-8-3-2-4-8-7-9")
-    print("Gesorteerde list van ints:", " <vervang dit door de gesorteerde lijst van getallen> ")
-    print("Grootste getal:", " <vervang dit door het grootste getal> ", "en Kleinste getal:", " <vervang dit door het kleinste getal> ")
-    print("Aantal getallen:", " <vervang dit door 'aantal getallen'> ", "en Som van de getallen:", " <vervang dit door de som> ")
-    print("Gemiddelde:", " <vervang dit door het gemiddelde> ")
+    print("Gesorteerde list van ints: ", "<vervang dit door de gesorteerde lijst van getallen>")
+    print("Grootste getal: ", "<vervang dit door het grootste getal>", " en Kleinste getal: ", "<vervang dit door het kleinste getal>")
+    print("Aantal getallen: ", "<vervang dit door 'aantal getallen'>", " en Som van de getallen: ", "<vervang dit door de som>")
+    print("Gemiddelde: ", "<vervang dit door het gemiddelde>")
 
 
 
