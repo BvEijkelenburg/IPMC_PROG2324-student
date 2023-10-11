@@ -189,21 +189,28 @@ def test_aantal_kluizen_vrij():
 def test_nieuwe_kluis():
     function = nieuwe_kluis
 
-    case = collections.namedtuple('case', 'safes simulated_input possible_outputs')
-    testcases = [case(((11, "6754"), (12, "z@terd@g")), ["geheim"], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+    case = collections.namedtuple('case', 'safes simulated_input possible_outputs clean_context')
+    testcases = [case(((1, "0000"), (3, "0000"), (5, "0000"), (7, "0000"), (9, "0000"), (11, "0000"), (2, "0000"),
+                       (4, "0000"), (6, "0000"), (8, "0000"), (10, "0000"), (12, "0000")), ["geheim"], [-2], True),
                  case(((1, "0000"), (3, "0000"), (5, "0000"), (7, "0000"), (9, "0000"), (11, "0000"),
-                       (2, "0000"), (4, "0000"), (6, "0000"), (8, "0000"), (10, "0000"), (12, "0000")), ["geheim"], [-2]),
-                 case(((1, "0000"), (3, "0000"), (5, "0000"), (7, "0000"), (9, "0000"), (11, "0000"),
-                       (2, "0000"), (4, "0000"), (6, "0000"), (8, "0000"), (12, "0000")), ["geheim"], [10]),
+                       (2, "0000"), (4, "0000"), (6, "0000"), (8, "0000"), (12, "0000")), ["geheim"], [10], True),
                  case(((1, "0000"), (3, "0000"), (5, "0000"), (8, "0000"), (10, "0000"), (12, "0000"),
-                       (2, "0000"), (4, "0000"), (6, "0000"), (9, "0000"), (11, "0000")), ["geheim"], [7]),
+                       (2, "0000"), (4, "0000"), (6, "0000"), (9, "0000"), (11, "0000")), ["geheim"], [7], True),
                  case(((2, "0000"), (4, "0000"), (6, "0000"), (8, "0000"), (10, "0000"), (12, "0000"),
-                       (3, "0000"), (5, "0000"), (7, "0000"), (9, "0000"), (11, "0000")), ["geheim"], [1]),
-                 case(((1, "0000"), (3, "0000")), ["abc"], [-1]),
-                 case(((1, "0000"), (3, "0000")), ["geheim;"], [-1])]
+                       (3, "0000"), (5, "0000"), (7, "0000"), (9, "0000"), (11, "0000")), ["geheim"], [1], True),
+                 case(((1, "0000"), (3, "0000")), ["abc"], [-1], True),
+                 case(((1, "0000"), (3, "0000")), ["geheim;"], [-1], True),
+                 case(((11, "6754"), (12, "z@terd@g")), ["geheim"], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], True),
+                 # extra test to check whether adding a new safe twice will succeed
+                 case(((11, "6754"), (12, "z@terd@g"), (None, "onbekend")), # thirth (unknown) safe, from previous test
+                      ["geheim"], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], False)]  # use testfile from previous test
 
     for test in testcases:
-        __create_test_file(test.safes)
+        if test.clean_context:
+            __create_test_file(test.safes)
+        else:
+            print(f"Voor testdoeleinden wordt bestand {__my_test_file()} nogmaals gebruikt.")
+
 
         original_open = builtins.open
         builtins.open = __create_fake_open(original_open)
@@ -282,6 +289,7 @@ def test_kluis_teruggeven():
                  case((), ["1", "geheim"], False),
                  case(((11, "6754"), (12, "z@terd@g")), ["12", "z@terd@g"], True),
                  case(((11, "6754"), (12, "z@terd@g")), ["11", "6754"], True),
+                 case(((11, "6754"), (12, "z@terd@g"), (1, "abcdef")), ["11", "6754"], True),
                  case(((11, "6754"),), ["11", "6754"], True),
                  case(((11, "geheim"),), ["1", "geheim"], False),
                  case(((12, "geheim"),), ["2", "geheim"], False),
